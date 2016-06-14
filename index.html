@@ -23,14 +23,14 @@
             <div class="app-search-bar">
               <div class="search">
                 <i class="fa fa-search"></i>
-                <input id="search" autofocus>
+                <input id="search" data-bind="event: {keyup: searchFunc}" autofocus>
               </div>
             </div>
             <div class="app-body" data-bind="">
               <ul id="channelList" data-bind="foreach: channelList" class="list-unstyled text-center">
                 <div id="channelItem">
                   <span class='small' data-bind="if: isLive()"><span class="live small pull-right">Live!</span></span>
-                  <img class='pull-left' id='logo' data-bind="attr: {src: logo}"/>
+                  <a data-bind="attr: {href: url}"><img class='pull-left' id='logo' data-bind="attr: {src: logo}"/></a>
                   <a data-bind="attr: {href: url}"><div class='lead' data-bind="text: name"></div></a>
                   <span class='small' data-bind="text: status"></span>
                 </div>
@@ -39,6 +39,7 @@
         </div>
       </div>
     </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>

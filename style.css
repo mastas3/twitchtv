@@ -86,6 +86,8 @@ body{
 .live{
   background: green;
   color: white;
+  width: 40px;
+  border-radius: 10px;
 }
 
 a{

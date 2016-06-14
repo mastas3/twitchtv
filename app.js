@@ -1,10 +1,12 @@
-var channelArray = [];
-var promises=[];
-var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
+var channelArray = [],
+    promises=[],
+    users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
             "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas",
             "nintendo", "eleaguetv"];
 
-
+//--------------
+//get JSON data
+//--------------
 for(var i = 0; i < users.length; i++){
   var request  = $.getJSON('https://api.twitch.tv/kraken/channels/'+users[i]+'?callback=?', function(data) {
   channelArray.push(data);
@@ -13,17 +15,30 @@ for(var i = 0; i < users.length; i++){
 }
 
 
-$.when.apply(null, promises).done(function(){
-  ko.applyBindings(new ViewModel());
-})
-
+//-----------
+// ViewModel
+//-----------
 var ViewModel = function(){
-  var self = this;
-  self.channelList = ko.observableArray([]);
+  var self = this,
+      searchString = '',
+      startedRenderingChannel = false;
 
+  self.channelList = ko.observableArray([]);
   self.pages = ko.observableArray(['all', 'online', 'offline']);
   self.currentPage = ko.observable(self.pages()[0]);
 
+  self.renderChannel = function(string){
+    startedRenderingChannel = true;
+    self.channelList.removeAll();
+
+    channelArray.forEach(function(channelItem){
+      var channel = new Channel(channelItem);
+      var channelName = channel.name.toLowerCase();
+      if(channelName.search(string)>-1){
+          self.channelList.push(channel);
+      }
+    })
+  }
 
   self.renderChannels = function(page){
     switch(page){
@@ -46,6 +61,7 @@ var ViewModel = function(){
       })
         break;
       default:
+      self.channelList.removeAll();
       channelArray.forEach(function(channelItem){
         self.channelList.push(new Channel(channelItem));
       })
@@ -54,31 +70,38 @@ var ViewModel = function(){
 
   self.changeCurrentPage = function(data, event){
     var newPage = event.target.href.substring(event.target.href.indexOf('#')+2);
-    if(self.currentPage() !== newPage){
+    if(self.currentPage() !== newPage || (self.currentPage() === newPage && startedRenderingChannel)){
+      $('.active').removeClass('active');
+      $(event.target.parentNode).addClass('active');
       self.currentPage(newPage);
       self.renderChannels(newPage);
     }
   }
 
-    channelArray.forEach(function(channelItem){
-      self.channelList.push(new Channel(channelItem));
-    })
+
+
+  self.searchFunc = function(data, event){
+    var charCode = event.which;
+    if(charCode === 8 && searchString.length>0){
+      if($('#search').val()==''){
+        searchString = '';
+      }
+      searchString = searchString.substring(0,searchString.length-1);
+    }else{
+      searchString += String.fromCharCode(charCode).toLowerCase();
+    }
+      self.renderChannel(searchString);
+  }
+
+  channelArray.forEach(function(channelItem){
+    self.channelList.push(new Channel(channelItem));
+  })
+
 }
 
-// var Page = function(pageData){
-//   switch(pageData.name){
-//     case 'all':
-//
-//       break;
-//     case 'online':
-//
-//       break;
-//     case 'offline':
-//
-//       break;
-//   }
-// }
-
+//----------------
+// Channel Model
+//----------------
 var Channel = function(data){
     this.name = data.display_name;
     this.logo = data.logo;
@@ -88,3 +111,10 @@ var Channel = function(data){
        return data.partner;
     }
 }
+
+//-------------------------------------------------------
+// When data is ready - apply data bindings with knockout
+//-------------------------------------------------------
+$.when.apply(null, promises).done(function(){
+  ko.applyBindings(new ViewModel());
+})
