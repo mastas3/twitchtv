@@ -1,0 +1,87 @@
+body{
+  background: #F4A460;
+  margin-top:10px;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.app-header ul{
+  background: #D2691E;
+  border: none;
+}
+
+.app-header ul li{
+  width: 33.333%;
+}
+
+.app-header ul li a{
+  color: white;
+}
+
+.app-header ul li a:hover{
+  background: #DC143C;
+  border: none;
+}
+
+.app-search-bar{
+  padding: 10px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.search {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.search input {
+  width: 100%;
+  height: 32px;
+  background: #fcfcfc;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+}
+
+.search input { text-indent: 32px;}
+
+.search .fa-search {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.app-body{
+  background: white;
+  height: 1000px;
+}
+
+#logo{
+  border-radius: 20px;
+  width: 50px;
+  height: 50px;
+}
+
+#channelItem{
+  border-bottom: 1px solid gray;
+  padding: 15px;
+}
+
+.live{
+  background: green;
+  color: white;
+  
+}
