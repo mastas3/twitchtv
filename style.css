@@ -1,6 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
 body{
   background: #F4A460;
   margin-top:10px;
+  font-family: 'Oswald', sans-serif;
 }
 
 /* centered columns styles */
@@ -66,7 +69,7 @@ body{
 
 .app-body{
   background: white;
-  height: 1000px;
+  height: 100%;
 }
 
 #logo{
@@ -83,5 +86,12 @@ body{
 .live{
   background: green;
   color: white;
-  
+}
+
+a{
+  color:#00010F;
+}
+
+a:hover{
+  color: #F06F0F;
 }

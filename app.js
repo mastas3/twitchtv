@@ -1,7 +1,8 @@
 var channelArray = [];
 var promises=[];
 var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp",
-            "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+            "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas",
+            "nintendo", "eleaguetv"];
 
 
 for(var i = 0; i < users.length; i++){
@@ -13,20 +14,70 @@ for(var i = 0; i < users.length; i++){
 
 
 $.when.apply(null, promises).done(function(){
-  console.log(channelArray[4]);
   ko.applyBindings(new ViewModel());
 })
 
 var ViewModel = function(){
   var self = this;
   self.channelList = ko.observableArray([]);
-  self.menu = ko.observableArray([]);
+
+  self.pages = ko.observableArray(['all', 'online', 'offline']);
+  self.currentPage = ko.observable(self.pages()[0]);
 
 
-  channelArray.forEach(function(channelItem){
-    self.channelList.push(new Channel(channelItem))
-  })
+  self.renderChannels = function(page){
+    switch(page){
+      case 'online':
+          self.channelList.removeAll();
+          channelArray.forEach(function(channelItem){
+            var channel = new Channel(channelItem);
+            if(channel.isLive()){
+              self.channelList.push(channel);
+            }
+          })
+        break;
+      case 'offline':
+      self.channelList.removeAll();
+      channelArray.forEach(function(channelItem){
+        var channel = new Channel(channelItem);
+        if(!channel.isLive()){
+          self.channelList.push(channel);
+        }
+      })
+        break;
+      default:
+      channelArray.forEach(function(channelItem){
+        self.channelList.push(new Channel(channelItem));
+      })
+    }
+  }
+
+  self.changeCurrentPage = function(data, event){
+    var newPage = event.target.href.substring(event.target.href.indexOf('#')+2);
+    if(self.currentPage() !== newPage){
+      self.currentPage(newPage);
+      self.renderChannels(newPage);
+    }
+  }
+
+    channelArray.forEach(function(channelItem){
+      self.channelList.push(new Channel(channelItem));
+    })
 }
+
+// var Page = function(pageData){
+//   switch(pageData.name){
+//     case 'all':
+//
+//       break;
+//     case 'online':
+//
+//       break;
+//     case 'offline':
+//
+//       break;
+//   }
+// }
 
 var Channel = function(data){
     this.name = data.display_name;
@@ -34,6 +85,6 @@ var Channel = function(data){
     this.status = data.status;
     this.url = data.url;
     this.isLive = function(){
-       return data.video_banner===null
+       return data.partner;
     }
 }

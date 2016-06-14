@@ -1,0 +1,38 @@
+{
+  "name": "pager",
+  "main": "pager.js",
+  "version": "1.0.1",
+  "homepage": "https://github.com/acauamontiel/pager",
+  "authors": [
+    "Acauã Montiel <contato@acauamontiel.com.br>"
+  ],
+  "description": "A very simple and useful pager boilerplate",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "pager",
+    "pagination"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "*.json",
+    "*.md",
+    "gulpfile.js"
+  ],
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.1",
+    "commit": "38fcc3f54c6d3de996fe67b7cf0f37854b4cb863"
+  },
+  "_source": "https://github.com/acauamontiel/pager.git",
+  "_target": "^1.0.1",
+  "_originalSource": "pager",
+  "_direct": true
+}

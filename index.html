@@ -13,11 +13,11 @@
         <div class="col-xs-5 col-centered">
             <div class="app-header">
                 <ul class="list-unstyled nav nav-tabs text-center">
-                  <li class="active"><a href="#/all">All</a></li>
+                  <li class="active"><a href="#/all" data-bind="click: changeCurrentPage">All</a></li>
                   <li class="divider"></li>
-                  <li><a href="#/online">Online</a></li>
+                  <li><a href="#/online" data-bind="click: changeCurrentPage">Online</a></li>
                   <li class="divider"></li>
-                  <li><a href="#/offline">Offline</a></li>
+                  <li><a href="#/offline" data-bind="click: changeCurrentPage">Offline</a></li>
                 </ul>
             </div>
             <div class="app-search-bar">
@@ -26,7 +26,7 @@
                 <input id="search" autofocus>
               </div>
             </div>
-            <div class="app-body">
+            <div class="app-body" data-bind="">
               <ul id="channelList" data-bind="foreach: channelList" class="list-unstyled text-center">
                 <div id="channelItem">
                   <span class='small' data-bind="if: isLive()"><span class="live small pull-right">Live!</span></span>
